@@ -9,12 +9,12 @@
 </head>
 <body>
   <div class="login-container">
-    <h2>Bem-vindo, <span id="nomeUsuario"></span>!</h2> <br>
-    <h5>"Criei esse mural para um projeto da faculdade, mas a ideia não é só acadêmica. 
-      Queria também criar um espaço onde meus amigos pudessem se divertir e interagir de uma forma nova e diferente.
-      A proposta é algo como uma rede social exclusiva, mirei no X e acertei no Orkurt"</h5> <br>
+    <h2>Bem-vindo, <span id="nomeUsuario"></span>!</h2>
 
-    <button onclick="irParaPerfil()">Ver Perfil</button>
+    <!-- Exibindo a foto de perfil -->
+    <img id="fotoPerfil" class="foto-perfil" src="" alt="Foto de Perfil"><br>
+
+    <br> <button onclick="irParaPerfil()">Ver Perfil</button> <br>
 
     <textarea id="mensagem" placeholder="Escreva sua mensagem..."></textarea>
     <button onclick="postarMensagem()">Postar</button>
@@ -49,20 +49,20 @@
 
   <script>
     const usuario = localStorage.getItem("usuarioLogado");
-if (!usuario) {
-  window.location.href = "index.html";
-} else {
-  document.getElementById("nomeUsuario").textContent = usuario;
-  
-  // Recuperar a foto de perfil do Firebase
-  const usuarioRef = database.ref("usuarios").child(usuario);
-  usuarioRef.on("value", snapshot => {
-    const usuarioData = snapshot.val();
-    if (usuarioData && usuarioData.fotoPerfil) {
-      document.getElementById("fotoPerfil").src = usuarioData.fotoPerfil;
+    if (!usuario) {
+      window.location.href = "index.html";
+    } else {
+      document.getElementById("nomeUsuario").textContent = usuario;
+      
+      // Recuperar a foto de perfil do Firebase
+      const usuarioRef = database.ref("usuarios").child(usuario);
+      usuarioRef.on("value", snapshot => {
+        const usuarioData = snapshot.val();
+        if (usuarioData && usuarioData.fotoPerfil) {
+          document.getElementById("fotoPerfil").src = usuarioData.fotoPerfil;
+        }
+      });
     }
-  });
-}
 
     function postarMensagem() {
       const texto = document.getElementById("mensagem").value.trim();
@@ -79,47 +79,47 @@ if (!usuario) {
     }
 
     function carregarMensagens() {
-  const mural = document.getElementById("mural");
-  mural.innerHTML = "";
+      const mural = document.getElementById("mural");
+      mural.innerHTML = "";  // Limpa o mural antes de adicionar as novas mensagens
 
-  database.ref("mensagens").on("value", snapshot => {
-    mural.innerHTML = "";
-    const mensagens = snapshot.val();
+      database.ref("mensagens").on("value", snapshot => {
+        const mensagens = snapshot.val();
+        
+        if (mensagens) {
+          const chaves = Object.keys(mensagens).reverse();
+          chaves.forEach((key) => {
+            const msg = mensagens[key];
+            const card = document.createElement("div");
+            card.className = "card";
 
-    if (mensagens) {
-      const chaves = Object.keys(mensagens).reverse();
-      chaves.forEach((key) => {
-        const msg = mensagens[key];
-        const card = document.createElement("div");
-        card.className = "card";
+            // Buscar foto de perfil do autor da mensagem
+            const usuarioRef = database.ref("usuarios").child(msg.autor);
+            usuarioRef.once("value", snapshot => {
+              const usuarioData = snapshot.val();
+              const fotoPerfil = usuarioData ? usuarioData.fotoPerfil : "";
+              
+              const fotoHtml = fotoPerfil ? `<img src="${fotoPerfil}" class="foto-perfil">` : "<img src='default-avatar.png' class='foto-perfil'>";  // Imagem padrão caso não tenha foto
 
-        // Buscar foto de perfil do autor da mensagem
-        const usuarioRef = database.ref("usuarios").child(msg.autor);
-        usuarioRef.once("value", snapshot => {
-          const usuarioData = snapshot.val();
-          const fotoPerfil = usuarioData ? usuarioData.fotoPerfil : "";
-          
-          const fotoHtml = fotoPerfil ? `<img src="${fotoPerfil}" class="foto-perfil">` : "";
+              let html = `
+                <div class="perfil">
+                  ${fotoHtml}
+                  <strong>${msg.autor}</strong> <small>${msg.data}</small>
+                </div>
+                <p>${msg.texto}</p>
+              `;
 
-          let html = `
-            <div class="perfil">
-              ${fotoHtml}
-              <strong>${msg.autor}</strong> <small>${msg.data}</small>
-            </div>
-            <p>${msg.texto}</p>
-          `;
+              if (msg.autor === usuario) {
+                html += `<button class="apagar" onclick="apagarMensagem('${key}')">🗑️ Apagar</button>`;
+              }
 
-          if (msg.autor === usuario) {
-            html += `<button class="apagar" onclick="apagarMensagem('${key}')">🗑️ Apagar</button>`;
-          }
-
-          card.innerHTML = html;
-          mural.appendChild(card);
-        });
+              card.innerHTML = html;
+              mural.appendChild(card);
+            });
+          });
+        }
       });
     }
-  });
-}
+
     function apagarMensagem(key) {
       database.ref("mensagens").child(key).remove();
     }
@@ -129,7 +129,7 @@ if (!usuario) {
     }
 
     function game() {
-      window.location.href = "pokemongame.html";
+      window.location.href = "pggame.html";
     }
 
     function sair() {
