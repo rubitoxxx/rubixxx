@@ -1,153 +1,710 @@
+/* style.css */
+
+/* Importação da fonte Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Estilos globais para o corpo da página */
 body {
-  font-family: sans-serif;
-  background-color: #f0f2f5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  margin: 0;
+    font-family: 'Inter', sans-serif; /* Aplica a fonte Inter */
+    background: #0f0f23; /* Cor de fundo escura para o tema */
+    color: #ffffff; /* Cor do texto principal */
+    min-height: 100vh; /* Garante que o corpo ocupe a altura total da viewport */
+    overflow-x: hidden; /* Previne rolagem horizontal */
+    margin: 0; /* Remove margens padrão do corpo */
+    display: flex; /* Para centralizar o conteúdo principal */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    flex-direction: column; /* Permite empilhar elementos verticalmente */
 }
 
+/* Animação de fundo com gradiente */
+.background-animation {
+    position: fixed; /* Fixa o fundo na viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2; /* Garante que fique atrás de todo o conteúdo */
+    background: linear-gradient(45deg, #0f0f23, #1a1a3e, #2d1b69); /* Gradiente de cores escuras */
+    background-size: 400% 400%; /* Tamanho maior para a animação */
+    animation: gradientShift 15s ease infinite; /* Aplica a animação de mudança de gradiente */
+}
+
+/* Keyframes para a animação do gradiente de fundo */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; } /* Posição inicial */
+    50% { background-position: 100% 50%; } /* Posição intermediária */
+    100% { background-position: 0% 50%; } /* Retorna à posição inicial */
+}
+
+/* Contêiner para as partículas flutuantes */
+.floating-particles {
+    position: fixed; /* Fixa as partículas na viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Permite que cliques passem pelas partículas */
+    z-index: -1; /* Fica entre o fundo e o conteúdo */
+}
+
+/* Estilo para cada partícula individual */
+.particle {
+    position: absolute; /* Posição absoluta dentro do contêiner de partículas */
+    width: 4px;
+    height: 4px;
+    background: rgba(100, 255, 218, 0.6); /* Cor ciano semi-transparente */
+    border-radius: 50%; /* Transforma em círculo */
+    animation: float 20s infinite linear; /* Aplica a animação de flutuação */
+}
+
+/* Keyframes para a animação de flutuação das partículas */
+@keyframes float {
+    0% {
+        transform: translateY(100vh) rotate(0deg); /* Começa de baixo, invisível */
+        opacity: 0;
+    }
+    10% {
+        opacity: 1; /* Torna-se visível */
+    }
+    90% {
+        opacity: 1; /* Permanece visível */
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg); /* Move para cima, gira e desaparece */
+        opacity: 0;
+    }
+}
+
+/* Contêiner principal para o conteúdo da página (login, mural, perfil) */
 .login-container,
-.perfil-container {
-  background-color: #ffffff;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  width: 100%;
-  max-width: 400px;
+.perfil-container,
+.container { /* 'container' é usado no mural.html para o novo design */
+    max-width: 600px; /* Largura máxima para o conteúdo */
+    margin: 40px auto; /* Margem superior/inferior e centralização horizontal */
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05); /* Fundo semi-transparente (glassmorphism) */
+    border-radius: 20px; /* Cantos arredondados */
+    backdrop-filter: blur(20px); /* Efeito de desfoque (glassmorphism) */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+    text-align: center; /* Centraliza o texto dentro do contêiner */
+    position: relative; /* Para z-index */
+    z-index: 1; /* Garante que esteja acima do fundo e partículas */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Sombra para profundidade */
+    transition: all 0.3s ease; /* Transição suave para hover */
 }
 
+.login-container:hover,
+.perfil-container:hover,
+.container:hover {
+    border-color: rgba(100, 255, 218, 0.3); /* Borda ciano no hover */
+    box-shadow: 0 15px 45px rgba(100, 255, 218, 0.15); /* Sombra mais intensa no hover */
+}
+
+/* Títulos */
 h2 {
-  color: #1c1e21;
-  margin-bottom: 20px;
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #64ffda, #00bcd4, #3f51b5); /* Gradiente neon para títulos */
+    -webkit-background-clip: text; /* Para aplicar o gradiente ao texto */
+    -webkit-text-fill-color: transparent; /* Torna o texto transparente para mostrar o gradiente */
+    background-clip: text;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(100, 255, 218, 0.4); /* Sombra neon para o texto */
 }
 
+h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #64ffda; /* Cor ciano neon */
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Campos de entrada de texto e senha */
 input[type="text"],
 input[type="password"],
 textarea {
-  width: calc(100% - 20px);
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #dddfe2;
-  border-radius: 6px;
-  font-size: 16px;
+    width: calc(100% - 30px); /* Largura total menos padding */
+    padding: 15px;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.08); /* Fundo semi-transparente */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Borda sutil */
+    border-radius: 15px; /* Cantos arredondados */
+    font-size: 16px;
+    color: #ffffff; /* Cor do texto */
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease; /* Transição suave */
 }
 
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    outline: none; /* Remove o contorno padrão */
+    border-color: #64ffda; /* Borda ciano neon no foco */
+    box-shadow: 0 0 20px rgba(100, 255, 218, 0.3); /* Sombra neon no foco */
+    background: rgba(255, 255, 255, 0.15); /* Fundo mais claro no foco */
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6); /* Cor do placeholder */
+}
+
+/* Estilo para botões */
+.btn,
 button {
-  background-color: #1877f2;
-  color: #ffffff;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  width: 100%;
-  margin-bottom: 10px;
+    background: linear-gradient(135deg, #64ffda, #00bcd4); /* Gradiente neon */
+    color: #0f0f23; /* Cor do texto nos botões */
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px; /* Cantos bem arredondados */
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Transição suave */
+    position: relative;
+    overflow: hidden; /* Para efeitos de hover */
+    margin-top: 10px; /* Espaçamento superior */
+    width: auto; /* Largura automática */
+    display: inline-block; /* Permite que os botões fiquem lado a lado se houver espaço */
+    min-width: 120px; /* Largura mínima para botões */
 }
 
+.btn:hover,
 button:hover {
-  background-color: #166fe5;
+    transform: translateY(-3px); /* Efeito de "levantar" no hover */
+    box-shadow: 0 12px 30px rgba(100, 255, 218, 0.4); /* Sombra mais intensa no hover */
+    filter: brightness(1.1); /* Leve brilho no hover */
 }
 
+.btn:active,
+button:active {
+    transform: translateY(0); /* Retorna à posição original no clique */
+    box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2); /* Sombra menor no clique */
+}
+
+.btn:disabled,
+button:disabled {
+    opacity: 0.6; /* Opacidade reduzida quando desabilitado */
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    filter: none;
+}
+
+/* Botões secundários (ex: Ver Perfil, Sair) */
+.btn-secondary,
+button.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:hover,
+button.secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #64ffda;
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Botão de apagar (perigo) */
+.btn-danger,
+button.apagar {
+    background: linear-gradient(135deg, #ff5722, #f44336); /* Gradiente vermelho */
+    color: #ffffff;
+    padding: 8px 18px; /* Padding menor para botões de ação */
+    font-size: 14px;
+    border-radius: 20px;
+}
+
+.btn-danger:hover,
+button.apagar:hover {
+    box-shadow: 0 8px 20px rgba(244, 67, 54, 0.4);
+}
+
+/* Mensagens de erro */
 #mensagemErro {
-  color: #ff0000;
-  margin-top: 10px;
+    color: #f44336; /* Cor vermelha para erros */
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
-.foto-perfil {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 15px;
-  border: 2px solid #1877f2;
+/* Estilos para foto de perfil */
+.foto-perfil,
+.avatar,
+.composer-avatar,
+.post-avatar {
+    width: 80px; /* Tamanho padrão para foto de perfil */
+    height: 80px;
+    border-radius: 50%; /* Formato circular */
+    object-fit: cover; /* Garante que a imagem preencha o círculo */
+    margin-bottom: 15px;
+    border: 3px solid #64ffda; /* Borda ciano neon */
+    box-shadow: 0 0 15px rgba(100, 255, 218, 0.3); /* Sombra neon */
+    background: linear-gradient(135deg, #64ffda, #3f51b5); /* Gradiente para avatares gerados */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px; /* Tamanho da letra para inicial */
+    font-weight: 600;
+    color: #0f0f23; /* Cor da letra da inicial */
+    transition: all 0.3s ease;
 }
 
+.foto-perfil:hover,
+.avatar:hover,
+.composer-avatar:hover,
+.post-avatar:hover {
+    transform: scale(1.05); /* Leve aumento no hover */
+    box-shadow: 0 0 25px rgba(100, 255, 218, 0.6);
+}
+
+/* Tamanhos específicos para avatares em diferentes contextos */
+.composer-avatar {
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+    margin-bottom: 0;
+}
+
+.post-avatar {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+/* Perfil do usuário na página de perfil */
 .perfil-imagem {
-  margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .perfil-imagem input[type="file"] {
-  display: block;
-  margin: 10px auto 0;
+    display: block;
+    margin: 15px auto 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 8px 15px;
+    cursor: pointer;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.perfil-imagem input[type="file"]:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #64ffda;
 }
 
 .perfil-nome {
-  margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .perfil-nome strong {
-  display: block;
-  margin-bottom: 5px;
-  color: #1c1e21;
+    display: block;
+    margin-bottom: 10px;
+    color: #64ffda;
+    font-size: 18px;
+    font-weight: 600;
 }
 
-.card {
-  background-color: #ffffff;
-  border: 1px solid #dddfe2;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 15px;
-  text-align: left;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+/* Estilos para o componente de postagem (composer) */
+.post-composer {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
 }
 
-.card .perfil {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+.post-composer:hover {
+    border-color: rgba(100, 255, 218, 0.3);
+    box-shadow: 0 10px 40px rgba(100, 255, 218, 0.1);
 }
 
-.card .perfil img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 10px;
+.composer-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
 }
 
-.card .perfil strong {
-  font-weight: bold;
-  color: #1c1e21;
+/* Textarea para a mensagem */
+textarea#mensagem {
+    width: calc(100% - 30px); /* Ajuste para padding */
+    min-height: 100px; /* Altura mínima */
+    max-height: 200px; /* Altura máxima */
+    resize: vertical; /* Permite redimensionar verticalmente */
 }
 
-.card .perfil small {
-  color: #65676b;
-  margin-left: auto;
+.composer-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
 }
 
-.card p {
-  color: #1c1e21;
-  line-height: 1.5;
-  margin-bottom: 10px;
+.char-counter {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
 }
 
+.char-counter.warning {
+    color: #ff9800; /* Laranja para aviso */
+}
+
+.char-counter.danger {
+    color: #f44336; /* Vermelho para perigo */
+}
+
+/* Estilos para o feed de mensagens (mural) */
+#mural {
+    margin-top: 30px;
+    max-height: 60vh; /* Altura máxima para rolagem */
+    overflow-y: auto; /* Adiciona barra de rolagem se o conteúdo exceder */
+    padding-right: 10px; /* Espaço para a barra de rolagem */
+    scrollbar-width: thin; /* Estilo da barra de rolagem (Firefox) */
+    scrollbar-color: #64ffda rgba(255, 255, 255, 0.1); /* Cor da barra de rolagem */
+}
+
+/* Estilo para a barra de rolagem (WebKit/Chrome) */
+#mural::-webkit-scrollbar {
+    width: 8px;
+}
+
+#mural::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+#mural::-webkit-scrollbar-thumb {
+    background-color: #64ffda;
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.05);
+}
+
+.card,
+.post { /* '.card' é usado no mural.html, '.post' é o nome sugerido no novo design */
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover,
+.post:hover {
+    border-color: rgba(100, 255, 218, 0.3);
+    transform: translateY(-3px); /* Efeito de "levantar" no hover */
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.4); /* Sombra mais intensa */
+}
+
+.card .perfil,
+.post-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Para alinhar o tempo à direita */
+    margin-bottom: 15px;
+}
+
+.card .perfil img { /* Estilo para a foto de perfil dentro do card */
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+    border: 2px solid #64ffda;
+    box-shadow: 0 0 10px rgba(100, 255, 218, 0.2);
+}
+
+.card .perfil strong,
+.post-info h4 {
+    font-weight: 600;
+    color: #64ffda;
+    font-size: 18px;
+}
+
+.card .perfil small,
+.post-time {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 13px;
+    margin-left: auto; /* Empurra para a direita */
+}
+
+.card p,
+.post-content {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+/* Botão de apagar mensagem dentro do card */
 .card .apagar {
-  background-color: #dc3545;
-  width: auto;
-  padding: 5px 10px;
-  font-size: 14px;
-  margin-top: 5px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid rgba(244, 67, 54, 0.3);
+    color: #f44336;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    padding: 0; /* Remove padding extra */
+    margin: 0; /* Remove margem extra */
 }
 
 .card .apagar:hover {
-  background-color: #c82333;
+    background: rgba(244, 67, 54, 0.2);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(244, 67, 54, 0.5);
 }
 
-#mural {
-  margin-top: 20px;
-  max-height: 60vh; /* Para permitir scroll se muitas mensagens */
-  overflow-y: auto;
-  padding-right: 10px; /* Espaço para a barra de rolagem */
+/* Estilos para o sistema de curtidas */
+.like-btn {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: auto; /* Ajusta a largura ao conteúdo */
+}
+
+.like-btn:hover {
+    border-color: #64ffda;
+    color: #64ffda;
+    background: rgba(100, 255, 218, 0.05);
+}
+
+.like-btn.liked {
+    background: rgba(100, 255, 218, 0.1);
+    border-color: #64ffda;
+    color: #64ffda;
+    box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+}
+
+.like-btn svg {
+    fill: currentColor; /* Usa a cor do texto para o ícone */
+    width: 16px;
+    height: 16px;
+}
+
+/* Estilos para o estado vazio do feed */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin-top: 30px;
+}
+
+.empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Navegação flutuante inferior */
+.navigation {
+    position: fixed; /* Fixa na tela */
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%); /* Centraliza horizontalmente */
+    display: flex;
+    gap: 15px; /* Espaçamento entre os botões */
+    background: rgba(255, 255, 255, 0.08); /* Fundo glassmorphism */
+    padding: 15px 25px;
+    border-radius: 30px; /* Cantos bem arredondados */
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    z-index: 100; /* Garante que fique acima de tudo */
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 10px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-btn:hover {
+    background: rgba(100, 255, 218, 0.1);
+    color: #64ffda;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
+}
+
+.nav-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
 }
 
 /* Responsividade */
-@media (max-width: 600px) {
-  .login-container,
-  .perfil-container {
-    margin: 20px;
-    padding: 20px;
-  }
+@media (max-width: 768px) {
+    .login-container,
+    .perfil-container,
+    .container {
+        margin: 20px;
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    .btn,
+    button {
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+
+    .foto-perfil,
+    .avatar {
+        width: 70px;
+        height: 70px;
+        font-size: 26px;
+    }
+
+    .composer-avatar,
+    .post-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .card,
+    .post {
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    .card .apagar {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+
+    .navigation {
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        transform: none; /* Remove a centralização fixa para ocupar a largura */
+        width: calc(100% - 20px); /* Ajusta a largura */
+        justify-content: space-around; /* Distribui os botões */
+        padding: 12px 15px;
+        border-radius: 25px;
+        gap: 8px;
+    }
+
+    .nav-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+        gap: 5px;
+    }
+
+    .nav-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container,
+    .perfil-container,
+    .container {
+        margin: 15px;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    textarea {
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .btn,
+    button {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+
+    .foto-perfil,
+    .avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 22px;
+    }
+
+    .card,
+    .post {
+        padding: 15px;
+    }
+
+    .card .perfil strong,
+    .post-info h4 {
+        font-size: 16px;
+    }
+
+    .card p,
+    .post-content {
+        font-size: 15px;
+    }
+
+    .navigation {
+        flex-wrap: wrap; /* Permite que os botões quebrem a linha */
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .nav-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
 }
