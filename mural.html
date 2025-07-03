@@ -16,7 +16,9 @@
     <button onclick="postarMensagem()">Postar</button>
 
     <h3>Mural:</h3>
-    <div id="mural"></div>
+    <div id="mural"></div><br>
+
+    <button onclick="game()">Game</button>
 
     <button onclick="sair()">Sair</button>
   </div>
@@ -120,6 +122,10 @@ if (!usuario) {
 
     function irParaPerfil() {
       window.location.href = "perfil.html";
+    }
+
+    function game() {
+      window.location.href = "pokemongame.html";
     }
 
     function sair() {
