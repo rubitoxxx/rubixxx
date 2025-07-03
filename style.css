@@ -8,25 +8,27 @@ body {
   font-family: 'Segoe UI', sans-serif;
   background: linear-gradient(135deg, #6a11cb, #2575fc);
   color: #fff;
-  height: auto; /* Permite que o conteúdo se expanda */
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 10px;
-  min-height: 100%; /* Garante que o corpo ocupe pelo menos 100% da altura da tela */
+  min-height: 100%;
   overflow-x: hidden; /* Evita transbordamento horizontal */
+  flex-direction: column;
 }
 
 h2 {
   margin-bottom: 20px;
+  font-size: 22px;
 }
 
+/* Contêiner do login */
 .login-container {
   background: rgba(15, 2, 2, 0.1);
   padding: 40px 30px;
   border-radius: 16px;
   width: 90%;
-  max-width: 450px;
+  max-width: 500px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   text-align: center;
   backdrop-filter: blur(10px);
@@ -34,8 +36,19 @@ h2 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 50px; /* Espaçamento superior */
 }
 
+/* Foto de perfil */
+.foto-perfil {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  border: 2px solid white; /* Borda branca ao redor da foto */
+}
+
+/* Botões */
 button {
   background: linear-gradient(90deg, #7928ca, #ff0080);
   color: white;
@@ -45,103 +58,94 @@ button {
   font-weight: bold;
   font-size: 14px;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 15px;
   transition: all 0.2s ease;
   margin-bottom: 15px;
+  width: 80%;
+  text-align: center;
 }
 
 button:hover {
-  transform: scale(1.03);
+  transform: scale(1.05);
   box-shadow: 0 4px 14px rgba(121, 40, 202, 0.4);
 }
 
-input, textarea {
+/* Textarea */
+textarea {
   width: 100%;
-  padding: 12px;
+  padding: 15px;
   margin-bottom: 15px;
   border-radius: 8px;
   border: none;
   font-size: 14px;
   outline: none;
-  background: rgba(4, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.15);
   color: #fff;
   box-shadow: inset 0 0 5px rgba(6, 3, 3, 0.2);
-}
-
-textarea {
   margin-top: 15px;
 }
 
-#mensagemErro {
-  color: #ff6666;
-  margin-top: 10px;
+textarea:focus {
+  background: rgba(255, 255, 255, 0.25);
 }
 
-.perfil-container {
-  background: rgba(15, 2, 2, 0.1);
-  padding: 40px 30px;
-  border-radius: 16px;
-  width: 90%;
-  max-width: 450px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  backdrop-filter: blur(10px);
-}
-
-input {
+/* Mural de mensagens */
+#mural {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 8px;
-  border: none;
-  font-size: 14px;
-  outline: none;
-  background: rgba(4, 0, 0, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  margin-top: 30px;
+}
+
+/* Cards de mensagens */
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.perfil {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+strong {
   color: #fff;
+  font-size: 16px;
 }
 
-button {
-  background: linear-gradient(90deg, #7928ca, #ff0080);
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-weight: bold;
+small {
+  color: #ccc;
+  font-size: 12px;
+}
+
+.card p {
+  color: #eee;
   font-size: 14px;
-  cursor: pointer;
-  margin-top: 5px;
-  transition: all 0.2s ease;
-}
-
-button:hover {
-  transform: scale(1.03);
-  box-shadow: 0 4px 14px rgba(121, 40, 202, 0.4);
-}
-
-.foto-perfil {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-bottom: 10px;
-}
-
-.foto-perfil {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-bottom: 10px;
-}
-
-input[type="file"] {
-  background: rgba(4, 0, 0, 0.25);
-  padding: 10px;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-#mensagemErro {
   margin-top: 10px;
-  color: #ff6666;
+}
+
+.apagar {
+  background: none;
+  border: 1px solid #ff4444;
+  color: #ff4444;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.apagar:hover {
+  background: #ff4444;
+  color: white;
 }
 
 /* Scroll personalizado */
@@ -158,11 +162,11 @@ input[type="file"] {
   border-radius: 4px;
 }
 
-/* Responsividade para telas pequenas */
+/* Responsividade para telas pequenas (tablets) */
 @media (max-width: 768px) {
   .login-container {
-    width: 90%;
     padding: 20px;
+    width: 90%;
     max-width: 320px;
   }
 
@@ -171,7 +175,7 @@ input[type="file"] {
     font-size: 14px;
   }
 
-  input, textarea {
+  textarea {
     padding: 10px;
     font-size: 14px;
   }
@@ -179,13 +183,18 @@ input[type="file"] {
   h2, h3 {
     font-size: 18px;
   }
+
+  .foto-perfil {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 /* Responsividade para smartphones */
 @media (max-width: 480px) {
   .login-container {
     padding: 15px;
-    max-width: 100%;
+    width: 100%;
   }
 
   button {
@@ -193,12 +202,17 @@ input[type="file"] {
     font-size: 12px;
   }
 
-  input, textarea {
+  textarea {
     font-size: 14px;
     padding: 8px;
   }
 
   h2, h3 {
     font-size: 16px;
+  }
+
+  .foto-perfil {
+    width: 50px;
+    height: 50px;
   }
 }
