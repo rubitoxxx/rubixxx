@@ -1,3 +1,4 @@
+/* Estilos básicos para desktop e telas maiores */
 body {
   font-family: Arial, sans-serif;
   background: #f0f0f0;
@@ -10,35 +11,22 @@ body {
   margin-top: 20px;
 }
 
-#actions {
-  margin-top: 20px;
+#playerImage, #enemyImage {
+  border-radius: 8px;
+  width: 100%;
+  max-width: 300px; /* Tamanho máximo das imagens */
+  height: auto;
 }
 
 button {
-  padding: 10px 20px;
+  padding: 12px 20px;
+  font-size: 16px;
   background-color: #ff4500;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   margin: 5px;
-}
-
-button:hover {
-  background-color: #ff6347;
-}
-
-#pokemonSelect {
-  margin-bottom: 20px;
-}
-
-button {
-  padding: 12px 20px;
-  font-size: 16px;
-}
-
-#playerImage, #enemyImage {
-  border-radius: 8px;
 }
 
 #attackAnimation {
@@ -48,4 +36,50 @@ button {
   align-items: center;
   position: absolute;
   z-index: 10;
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 768px) {
+  #battleArea {
+    flex-direction: column; /* Empilha os elementos em telas pequenas */
+    margin-top: 10px;
+  }
+
+  button {
+    padding: 10px 15px;
+    font-size: 14px;
+    width: 80%; /* Botões mais largos em telas pequenas */
+  }
+
+  #playerImage, #enemyImage {
+    width: 80%;
+    max-width: 250px; /* Ajuste de tamanho para telas pequenas */
+  }
+}
+
+/* Responsividade para smartphones */
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  #battleArea {
+    margin-top: 10px;
+  }
+
+  button {
+    padding: 8px 12px;
+    font-size: 12px;
+    width: 100%;
+  }
+
+  #playerImage, #enemyImage {
+    width: 90%;
+    max-width: 200px;
+  }
+
+  #attackAnimation img {
+    width: 80%;
+    max-width: 200px;
+  }
 }
