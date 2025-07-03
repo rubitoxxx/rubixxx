@@ -10,8 +10,8 @@ function login() {
   const senhaTeste = "12345";
   const usuarioteste1 = "yasmin";
   const senhaTeste1 = "1234";
-  const usuarioteste2 = "teste";
-  const senhaTeste2 = "1234";
+  const usuarioteste2 = "nadja";
+  const senhaTeste2 = "4321";
 
   // Condição para verificação de usuário e senha
   if ((usuario === usuarioAdmin && senha === senhaAdmin) || 
