@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Batalha Pokémon</title>
+  <button onclick="irParaMural()">Ver Mural</button>
+  <link rel="stylesheet" href="pokemon3.css">
+</head>
+<body>
+  <h1>Batalha Pokémon</h1>
+  <div id="pokemonSelect">
+    <button onclick="choosePokemon('charmander')">Escolher Charmander</button>
+    <button onclick="choosePokemon('pikachu')">Escolher Pikachu</button>
+  </div>
+
+  <div id="battleArea">
+  <div id="playerPokemon">
+    <img id="playerImage" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7f07c132-6e55-4943-9bb7-dbef21458a42/dfpzg61-4c3a91ac-21a9-4dc8-9509-3db764a2f122.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzdmMDdjMTMyLTZlNTUtNDk0My05YmI3LWRiZWYyMTQ1OGE0MlwvZGZwemc2MS00YzNhOTFhYy0yMWE5LTRkYzgtOTUwOS0zZGI3NjRhMmYxMjIuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.AQta0WxcPtahfCBVZKwhkK5XoGUpAKf96s5zMS2AQiQ" 
+    alt="Pokémon" width="200" height="200">
+    <p id="playerStatus"></p>
+  </div>
+  <div id="attackAnimation" style="display: none;">
+    <img id="attackGif" src="" alt="Animação do Ataque" width="200" height="200">
+  </div>
+  <div id="enemyPokemon">
+    <img id="enemyImage" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7f07c132-6e55-4943-9bb7-dbef21458a42/dfpzg61-4c3a91ac-21a9-4dc8-9509-3db764a2f122.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzdmMDdjMTMyLTZlNTUtNDk0My05YmI3LWRiZWYyMTQ1OGE0MlwvZGZwemc2MS00YzNhOTFhYy0yMWE5LTRkYzgtOTUwOS0zZGI3NjRhMmYxMjIuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.AQta0WxcPtahfCBVZKwhkK5XoGUpAKf96s5zMS2AQiQ" 
+    alt="Pokémon" width="200" height="200">
+    <p id="enemyStatus"></p>
+  </div>
+</div>
+  
+  <div id="actions">
+    <button onclick="attackFogo()">Ataque de Fogo</button>
+    <button onclick="attackRaio()">Ataque de Raio</button>
+    <button onclick="defend()">Defender</button>
+  </div>
+<script>
+  
+  function irParaMural() {
+    window.location.href = "mural.html"; // Redireciona para a página do mural
+  }
+</script>
+  <script src="pokemon.js"></script>
+</body>
+</html>
