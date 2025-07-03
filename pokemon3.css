@@ -1,22 +1,124 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background: #f0f0f0;
-  text-align: center;
-  min-height: 100%; /* Garante que o corpo ocupe pelo menos 100% da altura da tela */
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
   padding: 10px;
+  min-height: 100%;
   overflow-x: hidden; /* Evita transbordamento horizontal */
+  flex-direction: column;
 }
 
-/* Ajustes para battle area */
+h1 {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 2.5em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Contêiner principal do jogo */
+.game-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Área de batalha */
 #battleArea {
   display: flex;
   justify-content: space-around;
   margin-top: 20px;
   flex-wrap: wrap;
+  align-items: flex-end;
+  min-height: 300px;
+}
+
+.character-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.character-info {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+}
+
+.character-name {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.health-bar {
+  width: 100%;
+  height: 20px;
+  background: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.health-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50, #8BC34A);
+  transition: width 0.5s ease;
+  border-radius: 10px;
+}
+
+.health-text {
+  font-size: 0.9em;
+  color: #666;
+}
+
+#playerImage, #enemyImage {
+  border-radius: 8px;
+  width: 100%;
+  max-width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border: 4px solid #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+/* Efeito de "shake" no personagem */
+.character-shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.controls {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
 }
 
 button {
@@ -25,51 +127,130 @@ button {
   background-color: #ff4500;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   margin: 5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  min-width: 120px;
 }
 
 button:hover {
   background-color: #ff6347;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-#playerImage, #enemyImage {
-  border-radius: 8px;
-  width: 100%;
-  max-width: 300px; /* Tamanho máximo das imagens */
-  height: auto;
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
 }
 
 #attackAnimation {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  font-size: 4em;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.damage-text {
   position: absolute;
-  z-index: 10;
+  font-size: 2em;
+  font-weight: bold;
+  color: #ff4444;
+  animation: damageFloat 1s ease-out forwards;
+  pointer-events: none;
+  z-index: 100;
+}
+
+@keyframes damageFloat {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+.game-log {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  max-height: 150px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.log-entry {
+  margin-bottom: 8px;
+  padding: 5px;
+  border-left: 3px solid #ff4500;
+  padding-left: 10px;
+}
+
+.victory-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.victory-content {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
 /* Responsividade para telas pequenas */
 @media (max-width: 768px) {
   #battleArea {
-    flex-direction: column; /* Empilha os elementos em telas pequenas */
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .character-container {
+    margin: 10px;
   }
 
   button {
     padding: 10px 15px;
     font-size: 14px;
-    width: 80%; /* Botões mais largos em telas pequenas */
+    width: 80%;
   }
 
   #playerImage, #enemyImage {
     width: 80%;
-    max-width: 250px; /* Ajuste de tamanho para telas pequenas */
+    max-width: 180px;
+    height: 180px;
+  }
+
+  h1 {
+    font-size: 2em;
   }
 }
 
 /* Responsividade para smartphones */
 @media (max-width: 480px) {
+  .game-container {
+    padding: 20px;
+  }
+
   #battleArea {
     margin-top: 10px;
   }
@@ -78,15 +259,20 @@ button:hover {
     padding: 8px 12px;
     font-size: 12px;
     width: 100%;
+    min-width: auto;
   }
 
   #playerImage, #enemyImage {
     width: 90%;
-    max-width: 200px;
+    max-width: 150px;
+    height: 150px;
   }
 
-  #attackAnimation img {
-    width: 80%;
-    max-width: 200px;
+  .character-info {
+    min-width: 150px;
+  }
+
+  h1 {
+    font-size: 1.8em;
   }
 }
