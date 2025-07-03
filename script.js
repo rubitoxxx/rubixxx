@@ -12,12 +12,15 @@ function login() {
   const senhaTeste1 = "1234";
   const usuarioteste2 = "nadja";
   const senhaTeste2 = "4321";
+  const usuarioteste3 = "maria";
+  const senhaTeste3 = "54321";
 
   // Condição para verificação de usuário e senha
   if ((usuario === usuarioAdmin && senha === senhaAdmin) || 
       (usuario === usuarioteste && senha === senhaTeste) || 
       (usuario === usuarioteste1 && senha === senhaTeste1) ||
-      (usuario === usuarioteste2 && senha === senhaTeste2)) {
+      (usuario === usuarioteste2 && senha === senhaTeste2) ||
+      (usuario === usuarioteste3 && senha === senhaTeste3)) {
     
     // Se o login for bem-sucedido, armazene o usuário no localStorage
     localStorage.setItem("usuarioLogado", usuario);
