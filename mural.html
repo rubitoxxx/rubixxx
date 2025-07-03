@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Mural</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="login-container">
+    <h2>Bem-vindo, <span id="nomeUsuario"></span>!</h2>
+
+    <button onclick="irParaPerfil()">Ver Perfil</button>
+
+    <textarea id="mensagem" placeholder="Escreva sua mensagem..."></textarea>
+    <button onclick="postarMensagem()">Postar</button>
+
+    <h3>Mural:</h3>
+    <div id="mural"></div>
+
+    <button onclick="sair()">Sair</button>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-database-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBOrsDTkjnh8e4L-NcD8rfgqhGNMrHQXts",
+      authDomain: "rubix-mural.firebaseapp.com",
+      databaseURL: "https://rubix-mural-default-rtdb.firebaseio.com",
+      projectId: "rubix-mural",
+      storageBucket: "rubix-mural.firebasestorage.app",
+      messagingSenderId: "872394356857",
+      appId: "1:872394356857:web:1d61b90278251fba9dfca8",
+      measurementId: "G-P24SH5EBGK"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+  </script>
+
+  <script>
+    const usuario = localStorage.getItem("usuarioLogado");
+if (!usuario) {
+  window.location.href = "index.html";
+} else {
+  document.getElementById("nomeUsuario").textContent = usuario;
+  
+  // Recuperar a foto de perfil do Firebase
+  const usuarioRef = database.ref("usuarios").child(usuario);
+  usuarioRef.on("value", snapshot => {
+    const usuarioData = snapshot.val();
+    if (usuarioData && usuarioData.fotoPerfil) {
+      document.getElementById("fotoPerfil").src = usuarioData.fotoPerfil;
+    }
+  });
+}
+
+    function postarMensagem() {
+      const texto = document.getElementById("mensagem").value.trim();
+      if (texto === "") return;
+
+      const novaMensagem = {
+        autor: usuario,
+        texto: texto,
+        data: new Date().toLocaleString()
+      };
+
+      database.ref("mensagens").push(novaMensagem);
+      document.getElementById("mensagem").value = "";
+    }
+
+    function carregarMensagens() {
+  const mural = document.getElementById("mural");
+  mural.innerHTML = "";
+
+  database.ref("mensagens").on("value", snapshot => {
+    mural.innerHTML = "";
+    const mensagens = snapshot.val();
+
+    if (mensagens) {
+      const chaves = Object.keys(mensagens).reverse();
+      chaves.forEach((key) => {
+        const msg = mensagens[key];
+        const card = document.createElement("div");
+        card.className = "card";
+
+        // Buscar foto de perfil do autor da mensagem
+        const usuarioRef = database.ref("usuarios").child(msg.autor);
+        usuarioRef.once("value", snapshot => {
+          const usuarioData = snapshot.val();
+          const fotoPerfil = usuarioData ? usuarioData.fotoPerfil : "";
+          
+          const fotoHtml = fotoPerfil ? `<img src="${fotoPerfil}" class="foto-perfil">` : "";
+
+          let html = `
+            <div class="perfil">
+              ${fotoHtml}
+              <strong>${msg.autor}</strong> <small>${msg.data}</small>
+            </div>
+            <p>${msg.texto}</p>
+          `;
+
+          if (msg.autor === usuario) {
+            html += `<button class="apagar" onclick="apagarMensagem('${key}')">🗑️ Apagar</button>`;
+          }
+
+          card.innerHTML = html;
+          mural.appendChild(card);
+        });
+      });
+    }
+  });
+}
+    function apagarMensagem(key) {
+      database.ref("mensagens").child(key).remove();
+    }
+
+    function irParaPerfil() {
+      window.location.href = "perfil.html";
+    }
+
+    function sair() {
+      localStorage.removeItem("usuarioLogado");
+      window.location.href = "index.html";
+    }
+
+    carregarMensagens();
+  </script>
+</body>
+</html>

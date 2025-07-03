@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil do Usuário</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="perfil-container">
+    <h2>Perfil do Usuário</h2>
+
+    <button onclick="irParaMural()">Ver Mural</button>
+
+    <!-- Exibição da Foto de Perfil -->
+    <div class="perfil-imagem">
+      <img id="fotoPerfil" src="" alt="Foto de Perfil" class="foto-perfil">
+      <input type="file" id="fotoPerfilInput" accept="image/*" onchange="atualizarFotoPerfil()">
+    </div>
+
+    <!-- Exibição e Edição do Nome -->
+    <div class="perfil-nome">
+      <strong>Nome de Usuário:</strong>
+      <input type="text" id="nomePerfil" value="" placeholder="Digite seu nome" onchange="atualizarNome()">
+    </div>
+
+    <button onclick="salvarPerfil()">Salvar Perfil</button>
+    <p id="mensagemErro" style="color: red;"></p>
+  </div>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-database-compat.js"></script>
+<script>
+  // Inicialização do Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyBOrsDTkjnh8e4L-NcD8rfgqhGNMrHQXts",
+    authDomain: "rubix-mural.firebaseapp.com",
+    databaseURL: "https://rubix-mural-default-rtdb.firebaseio.com",
+    projectId: "rubix-mural",
+    storageBucket: "rubix-mural.firebasestorage.app",
+    messagingSenderId: "872394356857",
+    appId: "1:872394356857:web:1d61b90278251fba9dfca8",
+    measurementId: "G-P24SH5EBGK"
+  };
+
+  // Inicializa o Firebase
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+
+  // Carregar os dados do perfil armazenados
+  document.addEventListener('DOMContentLoaded', function () {
+    const nome = localStorage.getItem("usuarioLogado");
+    const foto = localStorage.getItem("fotoPerfil");
+
+    if (nome) {
+      document.getElementById("nomePerfil").value = nome;
+    }
+
+    if (foto) {
+      document.getElementById("fotoPerfil").src = foto;
+    }
+  });
+
+  // Redirecionar para o mural
+  function irParaMural() {
+    window.location.href = "mural.html"; // Redireciona para a página do mural
+  }
+
+  // Atualizar nome do usuário no localStorage
+  function atualizarNome() {
+    const nome = document.getElementById("nomePerfil").value;
+    localStorage.setItem("usuarioLogado", nome);
+  }
+
+  // Atualizar a foto de perfil no localStorage
+  function atualizarFotoPerfil() {
+    const fotoInput = document.getElementById("fotoPerfilInput").files[0];
+    if (fotoInput) {
+      const reader = new FileReader();
+      reader.onloadend = function () {
+        const fotoBase64 = reader.result;
+        localStorage.setItem("fotoPerfil", fotoBase64);
+        document.getElementById("fotoPerfil").src = fotoBase64;
+      };
+      reader.readAsDataURL(fotoInput);
+    }
+  }
+
+  function salvarPerfil() {
+  const nome = document.getElementById("nomePerfil").value;
+  const foto = document.getElementById("fotoPerfil").src;
+  
+  if (!nome) {
+    document.getElementById("mensagemErro").textContent = "Por favor, insira seu nome!";
+    return;
+  }
+
+  // Salvar no localStorage (para uso imediato no cliente)
+  localStorage.setItem("usuarioLogado", nome);
+  localStorage.setItem("fotoPerfil", foto);
+  
+  // Salvar no Firebase, associando o nome ao usuário
+  const usuarioRef = database.ref("usuarios").child(nome);
+  usuarioRef.set({
+    nome: nome,
+    fotoPerfil: foto
+  });
+  
+  document.getElementById("mensagemErro").textContent = "Perfil salvo com sucesso!";
+}
+</script>
+</body>
+</html>
