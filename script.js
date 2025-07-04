@@ -28,7 +28,9 @@ function login() {
       (usuario === usuarioteste2 && senha === senhaTeste2) ||
       (usuario === usuarioteste3 && senha === senhaTeste3) ||
       (usuario === usuarioteste4 && senha === senhaTeste4) ||
-      (usuario === usuarioteste5 && senha === senhaTeste5)) {
+      (usuario === usuarioteste5 && senha === senhaTeste5) ||
+      (usuario === usuarioteste6 && senha === senhaTeste6)) {
+    
     
     // Se o login for bem-sucedido, armazene o usuário no localStorage
     localStorage.setItem("usuarioLogado", usuario);
