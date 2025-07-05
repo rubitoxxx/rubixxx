@@ -16,24 +16,23 @@
   </div>
 
   <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const fotoInput = document.getElementById("fotoPerfil");
-    if (fotoInput) {
-      fotoInput.addEventListener("change", function () {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const img = document.createElement("img");
-          img.src = e.target.result;
-          img.style.maxWidth = "100px";
-          img.style.maxHeight = "100px";
-          document.body.appendChild(img); // Adiciona a imagem ao corpo da página para visualização
-        };
-        reader.readAsDataURL(fotoInput.files[0]);
-      });
-    }
-  });
-</script>
-
+    document.addEventListener('DOMContentLoaded', function () {
+      const fotoInput = document.getElementById("fotoPerfil");
+      if (fotoInput) {
+        fotoInput.addEventListener("change", function () {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.style.maxWidth = "100px";
+            img.style.maxHeight = "100px";
+            document.body.appendChild(img);
+          };
+          reader.readAsDataURL(fotoInput.files[0]);
+        });
+      }
+    });
+  </script>
 
   <script src="script.js"></script>
 
