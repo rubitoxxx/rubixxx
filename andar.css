@@ -1,0 +1,36 @@
+body {
+    margin: 0;
+    overflow: hidden; /* Esconde as barras de rolagem */
+    background-color: #14abe7; /* Cor do céu */
+}
+
+#game-container {
+    position: relative;
+    width: 100vw; /* Largura total da tela */
+    height: 100vh; /* Altura total da tela */
+    background-color: #a0d8a0; /* Cor de fundo para a floresta, se não tiver imagem */
+}
+
+#forest-background {
+    position: absolute;
+    width: 500%; /* Duas vezes a largura da tela para permitir rolagem */
+    height: 200%;
+    background-image: url('imagens/chao.png'); /* Imagem do chão que vai se mover */
+    background-repeat: repeat-x; /* Repete a imagem horizontalmente */
+    background-position: 0% 100%; /* Começa no canto inferior esquerdo */
+    bottom: 0; /* Alinha na parte inferior */
+    left: 0;
+    transition: left 0.1s linear; /* Animação suave para o movimento */
+}
+
+#character {
+    position: absolute;
+    bottom: 10%; /* Posição do boneco em relação à base */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translateX(-50%); /* Ajuste para centralizar perfeitamente */
+    width: 100px; /* Ajuste o tamanho do seu boneco */
+    height: 150px; /* Ajuste o tamanho do seu boneco */
+    object-fit: contain; /* Garante que a imagem se ajuste */
+    transition: transform 0.1s linear; /* Para virar o boneco */
+    z-index: 10; /* Garante que o boneco fique acima do fundo */
+}
