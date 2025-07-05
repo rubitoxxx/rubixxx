@@ -1,710 +1,343 @@
-/* style.css */
 
-/* Importação da fonte Inter */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* Importação da fonte Google Fonts - Press Start 2P para um toque retrô */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
-/* Estilos globais para o corpo da página */
+/* --- Estilos Gerais --- */
 body {
-    font-family: 'Inter', sans-serif; /* Aplica a fonte Inter */
-    background: #0f0f23; /* Cor de fundo escura para o tema */
-    color: #ffffff; /* Cor do texto principal */
-    min-height: 100vh; /* Garante que o corpo ocupe a altura total da viewport */
-    overflow-x: hidden; /* Previne rolagem horizontal */
-    margin: 0; /* Remove margens padrão do corpo */
-    display: flex; /* Para centralizar o conteúdo principal */
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    flex-direction: column; /* Permite empilhar elementos verticalmente */
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to bottom right, #6a11cb, #2575fc); /* Gradiente suave */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Animação de fundo com gradiente */
-.background-animation {
-    position: fixed; /* Fixa o fundo na viewport */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2; /* Garante que fique atrás de todo o conteúdo */
-    background: linear-gradient(45deg, #0f0f23, #1a1a3e, #2d1b69); /* Gradiente de cores escuras */
-    background-size: 400% 400%; /* Tamanho maior para a animação */
-    animation: gradientShift 15s ease infinite; /* Aplica a animação de mudança de gradiente */
-}
-
-/* Keyframes para a animação do gradiente de fundo */
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; } /* Posição inicial */
-    50% { background-position: 100% 50%; } /* Posição intermediária */
-    100% { background-position: 0% 50%; } /* Retorna à posição inicial */
-}
-
-/* Contêiner para as partículas flutuantes */
-.floating-particles {
-    position: fixed; /* Fixa as partículas na viewport */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* Permite que cliques passem pelas partículas */
-    z-index: -1; /* Fica entre o fundo e o conteúdo */
-}
-
-/* Estilo para cada partícula individual */
-.particle {
-    position: absolute; /* Posição absoluta dentro do contêiner de partículas */
-    width: 4px;
-    height: 4px;
-    background: rgba(100, 255, 218, 0.6); /* Cor ciano semi-transparente */
-    border-radius: 50%; /* Transforma em círculo */
-    animation: float 20s infinite linear; /* Aplica a animação de flutuação */
-}
-
-/* Keyframes para a animação de flutuação das partículas */
-@keyframes float {
-    0% {
-        transform: translateY(100vh) rotate(0deg); /* Começa de baixo, invisível */
-        opacity: 0;
-    }
-    10% {
-        opacity: 1; /* Torna-se visível */
-    }
-    90% {
-        opacity: 1; /* Permanece visível */
-    }
-    100% {
-        transform: translateY(-100px) rotate(360deg); /* Move para cima, gira e desaparece */
-        opacity: 0;
-    }
-}
-
-/* Contêiner principal para o conteúdo da página (login, mural, perfil) */
+/* --- Contêiner Principal (Login, Mural, Perfil) --- */
 .login-container,
-.perfil-container,
-.container { /* 'container' é usado no mural.html para o novo design */
-    max-width: 600px; /* Largura máxima para o conteúdo */
-    margin: 40px auto; /* Margem superior/inferior e centralização horizontal */
+.perfil-container {
+    background-color: #ffffff;
     padding: 30px;
-    background: rgba(255, 255, 255, 0.05); /* Fundo semi-transparente (glassmorphism) */
-    border-radius: 20px; /* Cantos arredondados */
-    backdrop-filter: blur(20px); /* Efeito de desfoque (glassmorphism) */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
-    text-align: center; /* Centraliza o texto dentro do contêiner */
-    position: relative; /* Para z-index */
-    z-index: 1; /* Garante que esteja acima do fundo e partículas */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Sombra para profundidade */
-    transition: all 0.3s ease; /* Transição suave para hover */
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 100%;
+    max-width: 450px;
+    box-sizing: border-box;
+    animation: fadeIn 0.8s ease-out;
 }
 
-.login-container:hover,
-.perfil-container:hover,
-.container:hover {
-    border-color: rgba(100, 255, 218, 0.3); /* Borda ciano no hover */
-    box-shadow: 0 15px 45px rgba(100, 255, 218, 0.15); /* Sombra mais intensa no hover */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* Títulos */
 h2 {
-    font-size: 32px;
-    font-weight: 700;
-    background: linear-gradient(135deg, #64ffda, #00bcd4, #3f51b5); /* Gradiente neon para títulos */
-    -webkit-background-clip: text; /* Para aplicar o gradiente ao texto */
-    -webkit-text-fill-color: transparent; /* Torna o texto transparente para mostrar o gradiente */
-    background-clip: text;
-    margin-bottom: 20px;
-    text-shadow: 0 0 10px rgba(100, 255, 218, 0.4); /* Sombra neon para o texto */
+    color: #4a4a4a;
+    margin-bottom: 25px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.8em;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 h3 {
-    font-size: 24px;
-    font-weight: 600;
-    color: #64ffda; /* Cor ciano neon */
+    color: #555;
     margin-top: 30px;
-    margin-bottom: 20px;
-    text-align: left;
+    margin-bottom: 15px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.4em;
+    letter-spacing: 1px;
 }
 
-/* Campos de entrada de texto e senha */
 input[type="text"],
 input[type="password"],
 textarea {
-    width: calc(100% - 30px); /* Largura total menos padding */
-    padding: 15px;
+    width: calc(100% - 20px);
+    padding: 12px;
     margin-bottom: 15px;
-    background: rgba(255, 255, 255, 0.08); /* Fundo semi-transparente */
-    border: 1px solid rgba(255, 255, 255, 0.15); /* Borda sutil */
-    border-radius: 15px; /* Cantos arredondados */
-    font-size: 16px;
-    color: #ffffff; /* Cor do texto */
-    font-family: 'Inter', sans-serif;
-    transition: all 0.3s ease; /* Transição suave */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
 }
 
 input[type="text"]:focus,
 input[type="password"]:focus,
 textarea:focus {
-    outline: none; /* Remove o contorno padrão */
-    border-color: #64ffda; /* Borda ciano neon no foco */
-    box-shadow: 0 0 20px rgba(100, 255, 218, 0.3); /* Sombra neon no foco */
-    background: rgba(255, 255, 255, 0.15); /* Fundo mais claro no foco */
+    border-color: #6a11cb;
+    box-shadow: 0 0 8px rgba(106, 17, 203, 0.2);
+    outline: none;
 }
 
-input::placeholder,
-textarea::placeholder {
-    color: rgba(255, 255, 255, 0.6); /* Cor do placeholder */
+textarea {
+    resize: vertical;
+    min-height: 80px;
 }
 
-/* Estilo para botões */
-.btn,
 button {
-    background: linear-gradient(135deg, #64ffda, #00bcd4); /* Gradiente neon */
-    color: #0f0f23; /* Cor do texto nos botões */
-    border: none;
+    background-color: #2575fc;
+    color: white;
     padding: 12px 25px;
-    border-radius: 25px; /* Cantos bem arredondados */
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease; /* Transição suave */
-    position: relative;
-    overflow: hidden; /* Para efeitos de hover */
-    margin-top: 10px; /* Espaçamento superior */
-    width: auto; /* Largura automática */
-    display: inline-block; /* Permite que os botões fiquem lado a lado se houver espaço */
-    min-width: 120px; /* Largura mínima para botões */
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.btn:hover,
 button:hover {
-    transform: translateY(-3px); /* Efeito de "levantar" no hover */
-    box-shadow: 0 12px 30px rgba(100, 255, 218, 0.4); /* Sombra mais intensa no hover */
-    filter: brightness(1.1); /* Leve brilho no hover */
+    background-color: #1a5ac7;
+    transform: translateY(-2px);
 }
 
-.btn:active,
 button:active {
-    transform: translateY(0); /* Retorna à posição original no clique */
-    box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2); /* Sombra menor no clique */
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.btn:disabled,
-button:disabled {
-    opacity: 0.6; /* Opacidade reduzida quando desabilitado */
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-    filter: none;
+.button.apagar {
+    background-color: #ff4d4d;
 }
 
-/* Botões secundários (ex: Ver Perfil, Sair) */
-.btn-secondary,
-button.secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+.button.apagar:hover {
+    background-color: #cc0000;
 }
 
-.btn-secondary:hover,
-button.secondary:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: #64ffda;
-    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
-}
-
-/* Botão de apagar (perigo) */
-.btn-danger,
-button.apagar {
-    background: linear-gradient(135deg, #ff5722, #f44336); /* Gradiente vermelho */
-    color: #ffffff;
-    padding: 8px 18px; /* Padding menor para botões de ação */
-    font-size: 14px;
-    border-radius: 20px;
-}
-
-.btn-danger:hover,
-button.apagar:hover {
-    box-shadow: 0 8px 20px rgba(244, 67, 54, 0.4);
-}
-
-/* Mensagens de erro */
-#mensagemErro {
-    color: #f44336; /* Cor vermelha para erros */
+p#mensagemErro {
+    color: #ff4d4d;
     margin-top: 15px;
-    font-size: 14px;
-    font-weight: 500;
+    font-weight: bold;
 }
 
-/* Estilos para foto de perfil */
-.foto-perfil,
-.avatar,
-.composer-avatar,
-.post-avatar {
-    width: 80px; /* Tamanho padrão para foto de perfil */
-    height: 80px;
-    border-radius: 50%; /* Formato circular */
-    object-fit: cover; /* Garante que a imagem preencha o círculo */
-    margin-bottom: 15px;
-    border: 3px solid #64ffda; /* Borda ciano neon */
-    box-shadow: 0 0 15px rgba(100, 255, 218, 0.3); /* Sombra neon */
-    background: linear-gradient(135deg, #64ffda, #3f51b5); /* Gradiente para avatares gerados */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 30px; /* Tamanho da letra para inicial */
-    font-weight: 600;
-    color: #0f0f23; /* Cor da letra da inicial */
-    transition: all 0.3s ease;
-}
-
-.foto-perfil:hover,
-.avatar:hover,
-.composer-avatar:hover,
-.post-avatar:hover {
-    transform: scale(1.05); /* Leve aumento no hover */
-    box-shadow: 0 0 25px rgba(100, 255, 218, 0.6);
-}
-
-/* Tamanhos específicos para avatares em diferentes contextos */
-.composer-avatar {
-    width: 45px;
-    height: 45px;
-    font-size: 18px;
-    margin-bottom: 0;
-}
-
-.post-avatar {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-    margin-bottom: 0;
-}
-
-/* Perfil do usuário na página de perfil */
-.perfil-imagem {
-    margin-bottom: 20px;
-}
-
-.perfil-imagem input[type="file"] {
-    display: block;
-    margin: 15px auto 0;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 8px 15px;
-    cursor: pointer;
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
-}
-
-.perfil-imagem input[type="file"]:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: #64ffda;
-}
-
-.perfil-nome {
-    margin-bottom: 25px;
-}
-
-.perfil-nome strong {
-    display: block;
-    margin-bottom: 10px;
-    color: #64ffda;
-    font-size: 18px;
-    font-weight: 600;
-}
-
-/* Estilos para o componente de postagem (composer) */
-.post-composer {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    padding: 25px;
-    margin-bottom: 30px;
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-}
-
-.post-composer:hover {
-    border-color: rgba(100, 255, 218, 0.3);
-    box-shadow: 0 10px 40px rgba(100, 255, 218, 0.1);
-}
-
-.composer-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-/* Textarea para a mensagem */
-textarea#mensagem {
-    width: calc(100% - 30px); /* Ajuste para padding */
-    min-height: 100px; /* Altura mínima */
-    max-height: 200px; /* Altura máxima */
-    resize: vertical; /* Permite redimensionar verticalmente */
-}
-
-.composer-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 15px;
-}
-
-.char-counter {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.6);
-    font-weight: 500;
-}
-
-.char-counter.warning {
-    color: #ff9800; /* Laranja para aviso */
-}
-
-.char-counter.danger {
-    color: #f44336; /* Vermelho para perigo */
-}
-
-/* Estilos para o feed de mensagens (mural) */
+/* --- Estilos do Mural --- */
 #mural {
-    margin-top: 30px;
-    max-height: 60vh; /* Altura máxima para rolagem */
-    overflow-y: auto; /* Adiciona barra de rolagem se o conteúdo exceder */
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+    max-height: 60vh; /* Limita a altura para rolagem */
+    overflow-y: auto; /* Adiciona barra de rolagem quando o conteúdo excede a altura */
     padding-right: 10px; /* Espaço para a barra de rolagem */
-    scrollbar-width: thin; /* Estilo da barra de rolagem (Firefox) */
-    scrollbar-color: #64ffda rgba(255, 255, 255, 0.1); /* Cor da barra de rolagem */
 }
 
-/* Estilo para a barra de rolagem (WebKit/Chrome) */
+/* Estilo da barra de rolagem para navegadores WebKit */
 #mural::-webkit-scrollbar {
     width: 8px;
 }
 
 #mural::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
+    background: #f1f1f1;
     border-radius: 10px;
 }
 
 #mural::-webkit-scrollbar-thumb {
-    background-color: #64ffda;
+    background: #888;
     border-radius: 10px;
-    border: 2px solid rgba(255, 255, 255, 0.05);
 }
 
-.card,
-.post { /* '.card' é usado no mural.html, '.post' é o nome sugerido no novo design */
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    padding: 25px;
-    margin-bottom: 20px;
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+#mural::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
+.card {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 15px;
     text-align: left;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
 }
 
-.card:hover,
-.post:hover {
-    border-color: rgba(100, 255, 218, 0.3);
-    transform: translateY(-3px); /* Efeito de "levantar" no hover */
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.4); /* Sombra mais intensa */
+.card:hover {
+    transform: translateY(-5px);
 }
 
-.card .perfil,
-.post-header {
+.card .perfil {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Para alinhar o tempo à direita */
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
-.card .perfil img { /* Estilo para a foto de perfil dentro do card */
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 12px;
-    border: 2px solid #64ffda;
-    box-shadow: 0 0 10px rgba(100, 255, 218, 0.2);
+.card .perfil strong {
+    font-size: 1.1em;
+    color: #2575fc;
+    margin-right: 8px;
 }
 
-.card .perfil strong,
-.post-info h4 {
-    font-weight: 600;
-    color: #64ffda;
-    font-size: 18px;
+.card .perfil small {
+    color: #888;
+    font-size: 0.85em;
 }
 
-.card .perfil small,
-.post-time {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 13px;
-    margin-left: auto; /* Empurra para a direita */
-}
-
-.card p,
-.post-content {
-    color: rgba(255, 255, 255, 0.9);
+.card p {
     line-height: 1.6;
     margin-bottom: 15px;
-    font-size: 16px;
+    color: #444;
 }
 
-/* Botão de apagar mensagem dentro do card */
-.card .apagar {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(244, 67, 54, 0.1);
-    border: 1px solid rgba(244, 67, 54, 0.3);
-    color: #f44336;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    transition: all 0.3s ease;
-    padding: 0; /* Remove padding extra */
-    margin: 0; /* Remove margem extra */
-}
-
-.card .apagar:hover {
-    background: rgba(244, 67, 54, 0.2);
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(244, 67, 54, 0.5);
-}
-
-/* Estilos para o sistema de curtidas */
-.like-btn {
-    background: none;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 0.7);
+.card button {
     padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    width: auto; /* Ajusta a largura ao conteúdo */
+    font-size: 0.9em;
+    margin-right: 10px;
 }
 
-.like-btn:hover {
-    border-color: #64ffda;
-    color: #64ffda;
-    background: rgba(100, 255, 218, 0.05);
+.card span {
+    font-size: 0.9em;
+    color: #666;
 }
 
-.like-btn.liked {
-    background: rgba(100, 255, 218, 0.1);
-    border-color: #64ffda;
-    color: #64ffda;
-    box-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+.card div textarea {
+    margin-top: 10px;
+    width: calc(100% - 10px);
+    margin-bottom: 5px;
 }
 
-.like-btn svg {
-    fill: currentColor; /* Usa a cor do texto para o ícone */
-    width: 16px;
-    height: 16px;
+/* --- Fotos de Perfil --- */
+.foto-perfil {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #2575fc;
+    margin-right: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos para o estado vazio do feed */
-.empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: rgba(255, 255, 255, 0.5);
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    margin-top: 30px;
-}
-
-.empty-state-icon {
-    font-size: 48px;
+.perfil-imagem {
     margin-bottom: 20px;
-    color: rgba(255, 255, 255, 0.3);
 }
 
-/* Navegação flutuante inferior */
-.navigation {
-    position: fixed; /* Fixa na tela */
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%); /* Centraliza horizontalmente */
-    display: flex;
-    gap: 15px; /* Espaçamento entre os botões */
-    background: rgba(255, 255, 255, 0.08); /* Fundo glassmorphism */
-    padding: 15px 25px;
-    border-radius: 30px; /* Cantos bem arredondados */
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    z-index: 100; /* Garante que fique acima de tudo */
+.perfil-imagem .foto-perfil {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 15px;
+    border: 4px solid #6a11cb;
 }
 
-.nav-btn {
-    background: none;
-    border: none;
-    color: rgba(255, 255, 255, 0.7);
-    padding: 10px 18px;
-    border-radius: 20px;
+/* Esconde o input de arquivo padrão */
+input[type="file"] {
+    display: none;
+}
+
+/* Estiliza um label como um botão para o input de arquivo */
+.perfil-imagem label {
+    background-color: #2575fc;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 15px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-size: 0.95em;
+    margin-top: 10px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
 }
 
-.nav-btn:hover {
-    background: rgba(100, 255, 218, 0.1);
-    color: #64ffda;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(100, 255, 218, 0.2);
+.perfil-imagem label:hover {
+    background-color: #1a5ac7;
 }
 
-.nav-btn svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
+.perfil-nome {
+    margin-bottom: 20px;
 }
 
-/* Responsividade */
+.perfil-nome strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #4a4a4a;
+}
+
+/* --- Responsividade --- */
 @media (max-width: 768px) {
     .login-container,
-    .perfil-container,
-    .container {
-        margin: 20px;
+    .perfil-container {
         padding: 20px;
-        border-radius: 15px;
+        max-width: 95%;
     }
 
     h2 {
-        font-size: 28px;
+        font-size: 1.5em;
+        letter-spacing: 1px;
     }
 
     h3 {
-        font-size: 20px;
+        font-size: 1.2em;
     }
 
-    .btn,
     button {
         padding: 10px 20px;
-        font-size: 15px;
+        font-size: 1em;
+        margin: 5px 2px; /* Ajusta a margem para botões em telas menores */
     }
 
-    .foto-perfil,
-    .avatar {
-        width: 70px;
-        height: 70px;
-        font-size: 26px;
+    .card {
+        padding: 15px;
     }
 
-    .composer-avatar,
-    .post-avatar {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
+    .foto-perfil {
+        width: 50px;
+        height: 50px;
     }
 
-    .card,
-    .post {
-        padding: 20px;
-        border-radius: 15px;
-    }
-
-    .card .apagar {
-        width: 30px;
-        height: 30px;
-        font-size: 16px;
-    }
-
-    .navigation {
-        bottom: 10px;
-        left: 10px;
-        right: 10px;
-        transform: none; /* Remove a centralização fixa para ocupar a largura */
-        width: calc(100% - 20px); /* Ajusta a largura */
-        justify-content: space-around; /* Distribui os botões */
-        padding: 12px 15px;
-        border-radius: 25px;
-        gap: 8px;
-    }
-
-    .nav-btn {
-        padding: 8px 12px;
-        font-size: 13px;
-        gap: 5px;
-    }
-
-    .nav-btn svg {
-        width: 18px;
-        height: 18px;
+    .perfil-imagem .foto-perfil {
+        width: 100px;
+        height: 100px;
     }
 }
 
 @media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
     .login-container,
-    .perfil-container,
-    .container {
-        margin: 15px;
+    .perfil-container {
         padding: 15px;
+        border-radius: 8px;
     }
 
     h2 {
-        font-size: 24px;
+        font-size: 1.3em;
+        margin-bottom: 20px;
     }
 
     input[type="text"],
     input[type="password"],
     textarea {
-        padding: 12px;
-        font-size: 15px;
+        padding: 10px;
+        font-size: 0.9em;
     }
 
-    .btn,
     button {
-        font-size: 14px;
-        padding: 10px 15px;
+        width: 100%; /* Botões ocupam largura total em telas muito pequenas */
+        margin-bottom: 10px;
     }
 
-    .foto-perfil,
-    .avatar {
-        width: 60px;
-        height: 60px;
-        font-size: 22px;
-    }
-
-    .card,
-    .post {
-        padding: 15px;
-    }
-
-    .card .perfil strong,
-    .post-info h4 {
-        font-size: 16px;
-    }
-
-    .card p,
-    .post-content {
-        font-size: 15px;
-    }
-
-    .navigation {
-        flex-wrap: wrap; /* Permite que os botões quebrem a linha */
-        justify-content: center;
-        gap: 10px;
+    .card {
         padding: 10px;
     }
-
-    .nav-btn {
-        padding: 6px 10px;
-        font-size: 12px;
+    
+    .card button {  
+        width: auto; /* Reset para botões dentro do card */
+        margin-right: 5px;
+        margin-bottom: 5px;
     }
 }
