@@ -15,7 +15,7 @@ body {
     position: absolute;
     width: 500%; /* Duas vezes a largura da tela para permitir rolagem */
     height: 200%;
-    background-image: url('chao.png'); /* Imagem do chão que vai se mover */
+    background-image: url('imagens/chao.png'); /* Imagem do chão que vai se mover */
     background-repeat: repeat-x; /* Repete a imagem horizontalmente */
     background-position: 0% 100%; /* Começa no canto inferior esquerdo */
     bottom: 0; /* Alinha na parte inferior */
@@ -34,3 +34,14 @@ body {
     transition: transform 0.1s linear; /* Para virar o boneco */
     z-index: 10; /* Garante que o boneco fique acima do fundo */
 }
+#voltar-mural {
+    position: absolute;
+    top: 20px; /* Distância do topo */
+    left: 20px; /* Distância da esquerda */
+    padding: 10px 20px; /* Espaçamento interno */
+    background-color: #f0f0f0; /* Cor de fundo do botão */
+    color: #333; /* Cor do texto */
+    border: none; /* Remove borda padrão */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+}   
