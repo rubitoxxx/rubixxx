@@ -20,6 +20,9 @@ function login() {
   const senhaTeste5 = "54321";
   const usuarioteste6 = "thalicia";
   const senhaTeste6 = "54321";
+  const usuarioteste6 = "dry";
+  const senhaTeste6 = "54321";
+
 
   // Condição para verificação de usuário e senha
   if ((usuario === usuarioAdmin && senha === senhaAdmin) || 
@@ -29,7 +32,8 @@ function login() {
       (usuario === usuarioteste3 && senha === senhaTeste3) ||
       (usuario === usuarioteste4 && senha === senhaTeste4) ||
       (usuario === usuarioteste5 && senha === senhaTeste5) ||
-      (usuario === usuarioteste6 && senha === senhaTeste6)) {
+      (usuario === usuarioteste6 && senha === senhaTeste6) ||
+      (usuario === usuarioteste7 && senha === senhaTeste7)) {
     
     
     // Se o login for bem-sucedido, armazene o usuário no localStorage
