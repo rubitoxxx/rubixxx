@@ -15,7 +15,7 @@ body {
     position: absolute;
     width: 500%; /* Duas vezes a largura da tela para permitir rolagem */
     height: 200%;
-    background-image: url('imagens/chao.png'); /* Imagem do chão que vai se mover */
+    background-image: url('chao.png'); /* Imagem do chão que vai se mover */
     background-repeat: repeat-x; /* Repete a imagem horizontalmente */
     background-position: 0% 100%; /* Começa no canto inferior esquerdo */
     bottom: 0; /* Alinha na parte inferior */
