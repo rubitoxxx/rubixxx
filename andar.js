@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let facingRight = true; // Direção para onde o boneco está olhando
 
     const characterImages = {
-        idle: 'imagens/boneco_parado.png',
-        walk1: 'imagens/boneco_andando1.png',
-        walk2: 'imagens/boneco_andando2.png'
+        idle: 'boneco_parado.png',
+        walk1: 'boneco_andando1.png',
+        walk2: 'boneco_andando2.png'
         // Adicione mais frames se tiver um spritesheet
     };
 
