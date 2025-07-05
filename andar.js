@@ -1,79 +1,142 @@
 document.addEventListener('DOMContentLoaded', () => {
     const character = document.getElementById('character');
     const forestBackground = document.getElementById('forest-background');
+    const leftButton = document.getElementById('left-button'); // Novo
+    const rightButton = document.getElementById('right-button'); // Novo
 
-    let characterSpeed = 5; // Velocidade de movimento do boneco
-    let backgroundPosition = 0; // Posição atual do fundo
-    let facingRight = true; // Direção para onde o boneco está olhando
+    let characterSpeed = 5;
+    let backgroundPosition = 0;
+    let facingRight = true;
 
     const characterImages = {
         idle: 'boneco_parado.png',
         walk1: 'boneco_andando1.png',
         walk2: 'boneco_andando2.png'
-        // Adicione mais frames se tiver um spritesheet
     };
 
     let animationFrame = 0;
     let animationInterval;
+    let movementInterval; // Novo: Para manter o movimento contínuo ao segurar o botão
 
-    // Função para iniciar a animação de caminhada
     function startWalkAnimation() {
-        if (animationInterval) return; // Já está animando
+        if (animationInterval) return;
         animationInterval = setInterval(() => {
-            animationFrame = (animationFrame + 1) % 2; // Alterna entre 0 e 1
+            animationFrame = (animationFrame + 1) % 2;
             character.src = animationFrame === 0 ? characterImages.walk1 : characterImages.walk2;
-        }, 150); // Mude este valor para ajustar a velocidade da animação
+        }, 150);
     }
 
-    // Função para parar a animação de caminhada
     function stopWalkAnimation() {
         clearInterval(animationInterval);
         animationInterval = null;
-        character.src = characterImages.idle; // Volta para a imagem parado
+        character.src = characterImages.idle;
     }
 
-    // Controle de movimento
-    let keys = {}; // Objeto para controlar quais teclas estão pressionadas
+    let keys = {}; // Para teclado
+    let isMovingLeft = false; // Para botões de toque
+    let isMovingRight = false; // Para botões de toque
 
-    document.addEventListener('keydown', (e) => {
-        keys[e.key] = true;
-        updateCharacterMovement();
-        if (!animationInterval) {
-            startWalkAnimation();
-        }
-    });
-
-    document.addEventListener('keyup', (e) => {
-        keys[e.key] = false;
-        updateCharacterMovement();
-        // Se nenhuma tecla de movimento está pressionada, para a animação
-        if (!keys['ArrowLeft'] && !keys['ArrowRight'] && !keys['a'] && !keys['d']) {
-            stopWalkAnimation();
-        }
-    });
-
+    // Função principal de atualização do movimento (chamada por teclado e toque)
     function updateCharacterMovement() {
         let moving = false;
-        if (keys['ArrowLeft'] || keys['a']) {
+        if (keys['ArrowLeft'] || keys['a'] || isMovingLeft) { // Inclui isMovingLeft
             backgroundPosition += characterSpeed;
-            if (backgroundPosition > 0) backgroundPosition = 0; // Limita para não ir muito para a direita
+            // Limita para não ir muito para a direita (início do cenário)
+            if (backgroundPosition > 0) backgroundPosition = 0;
             facingRight = false;
             moving = true;
         }
-        if (keys['ArrowRight'] || keys['d']) {
+        if (keys['ArrowRight'] || keys['d'] || isMovingRight) { // Inclui isMovingRight
             backgroundPosition -= characterSpeed;
             // Você pode adicionar um limite para o cenário aqui se quiser ter um "fim" da floresta
+            // Exemplo: if (backgroundPosition < - (forestBackground.scrollWidth - window.innerWidth)) { ... }
             facingRight = true;
             moving = true;
         }
 
         forestBackground.style.left = backgroundPosition + 'px';
 
-        // Virar o boneco
         if (facingRight) {
-            character.style.transform = 'translateX(-50%) scaleX(1)'; // Virado para a direita
+            character.style.transform = 'translateX(-50%) scaleX(1)';
         } else {
-            character.style.transform = 'translateX(-50%) scaleX(-1)'; // Virado para a esquerda
+            character.style.transform = 'translateX(-50%) scaleX(-1)';
+        }
+
+        // Inicia/Para animação de caminhada com base no movimento
+        if (moving && !animationInterval) {
+            startWalkAnimation();
+        } else if (!moving && animationInterval) {
+            stopWalkAnimation();
         }
     }
+
+    // Loop de movimento contínuo
+    function gameLoop() {
+        updateCharacterMovement();
+        requestAnimationFrame(gameLoop); // Otimizado para animação no navegador
+    }
+    requestAnimationFrame(gameLoop);
+
+
+    // --- Eventos de Teclado (Mantidos para Desktop) ---
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' || e.key === 'a') {
+            keys[e.key] = true;
+        } else if (e.key === 'ArrowRight' || e.key === 'd') {
+            keys[e.key] = true;
+        }
+    });
+
+    document.addEventListener('keyup', (e) => {
+        if (e.key === 'ArrowLeft' || e.key === 'a') {
+            keys[e.key] = false;
+        } else if (e.key === 'ArrowRight' || e.key === 'd') {
+            keys[e.key] = false;
+        }
+    });
+
+    // --- Eventos de Toque (Novos para Mobile) ---
+
+    // Botão Esquerdo
+    leftButton.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Previne o comportamento padrão de toque (ex: scroll)
+        isMovingLeft = true;
+    }, { passive: false }); // Use { passive: false } para preventDefault
+
+    leftButton.addEventListener('touchend', () => {
+        isMovingLeft = false;
+    });
+
+    // Para compatibilidade com mouse clicks em telas touch ou desktop
+    leftButton.addEventListener('mousedown', () => {
+        isMovingLeft = true;
+    });
+    leftButton.addEventListener('mouseup', () => {
+        isMovingLeft = false;
+    });
+    leftButton.addEventListener('mouseleave', () => { // Se o mouse sair do botão enquanto pressionado
+        isMovingLeft = false;
+    });
+
+
+    // Botão Direito
+    rightButton.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        isMovingRight = true;
+    }, { passive: false });
+
+    rightButton.addEventListener('touchend', () => {
+        isMovingRight = false;
+    });
+
+    // Para compatibilidade com mouse clicks
+    rightButton.addEventListener('mousedown', () => {
+        isMovingRight = true;
+    });
+    rightButton.addEventListener('mouseup', () => {
+        isMovingRight = false;
+    });
+    rightButton.addEventListener('mouseleave', () => {
+        isMovingRight = false;
+    });
 });
