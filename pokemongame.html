@@ -1,47 +1,64 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Batalha Pokémon</title>
-  <button onclick="irParaMural()">Ver Mural</button>
-  <link rel="stylesheet" href="pokemon3.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batalha Pokémon</title>
+    <link rel="stylesheet" href="pokemon3.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Batalha Pokémon</h1>
-  <div id="pokemonSelect">
-    <button onclick="choosePokemon('charmander')">Escolher Charmander</button>
-    <button onclick="choosePokemon('pikachu')">Escolher Pikachu</button>
-  </div>
+    <header class="game-header">
+        <h1>Batalha Pokémon</h1>
+        <button id="viewMuralBtn" onclick="irParaMural()">Ver Mural</button>
+    </header>
 
-  <div id="battleArea">
-  <div id="playerPokemon">
-    <img id="playerImage" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7f07c132-6e55-4943-9bb7-dbef21458a42/dfpzg61-4c3a91ac-21a9-4dc8-9509-3db764a2f122.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzdmMDdjMTMyLTZlNTUtNDk0My05YmI3LWRiZWYyMTQ1OGE0MlwvZGZwemc2MS00YzNhOTFhYy0yMWE5LTRkYzgtOTUwOS0zZGI3NjRhMmYxMjIuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.AQta0WxcPtahfCBVZKwhkK5XoGUpAKf96s5zMS2AQiQ" 
-    alt="Pokémon" width="200" height="200">
-    <p id="playerStatus"></p>
-  </div>
-  <div id="attackAnimation" style="display: none;">
-    <img id="attackGif" src="" alt="Animação do Ataque" width="200" height="200">
-  </div>
-  <div id="enemyPokemon">
-    <img id="enemyImage" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7f07c132-6e55-4943-9bb7-dbef21458a42/dfpzg61-4c3a91ac-21a9-4dc8-9509-3db764a2f122.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzdmMDdjMTMyLTZlNTUtNDk0My05YmI3LWRiZWYyMTQ1OGE0MlwvZGZwemc2MS00YzNhOTFhYy0yMWE5LTRkYzgtOTUwOS0zZGI3NjRhMmYxMjIuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.AQta0WxcPtahfCBVZKwhkK5XoGUpAKf96s5zMS2AQiQ" 
-    alt="Pokémon" width="200" height="200">
-    <p id="enemyStatus"></p>
-  </div>
-</div>
-  
-  <div id="actions">
-    <button onclick="attackFogo()">Ataque de Fogo</button>
-    <button onclick="attackRaio()">Ataque de Raio</button>
-    <button onclick="defend()">Defender</button>
-  </div>
-<script>
-  
-  function irParaMural() {
-    window.location.href = "mural.html"; // Redireciona para a página do mural
-  }
-</script>
-  <script src="pokemon.js"></script>
+    <main class="game-container">
+        <div id="pokemonSelect" class="screen active">
+            <h2>Escolha seu Pokémon!</h2>
+            <div class="selection-buttons">
+                <button onclick="choosePokemon('charmander')">🔥<br>CHARMANDER<br><span style="font-size:0.7em;">Tipo: Fogo<br>Poder: Chamas</span></button>
+                <button onclick="choosePokemon('pikachu')">⚡<br>PIKACHU<br><span style="font-size:0.7em;">Tipo: Elétrico<br>Poder: Raio</span></button>
+            </div>
+        </div>
+
+        <div id="battleArea" class="screen">
+            <div id="playerPokemon" class="pokemon-display player">
+                <img id="playerImage" alt="Pokémon do Jogador" class="pokemon-bounce">
+                <div class="health-bar-container">
+                    <div id="playerHealthBar" class="health-bar"></div>
+                </div>
+                <p id="playerStatus"></p>
+            </div>
+            <div id="attackAnimation" class="attack-animation">
+                <img id="attackGif" src="" alt="Animação do Ataque">
+            </div>
+            <div id="enemyPokemon" class="pokemon-display enemy">
+                <img id="enemyImage" alt="Pokémon Inimigo" class="pokemon-bounce">
+                 <div class="health-bar-container">
+                    <div id="enemyHealthBar" class="health-bar"></div>
+                </div>
+                <p id="enemyStatus"></p>
+            </div>
+        </div>
+        
+        <div id="actions" class="screen action-buttons">
+            <button onclick="attackFogo()">Ataque de Fogo</button>
+            <button onclick="attackRaio()">Ataque de Raio</button>
+            <button onclick="defend()">Defender</button>
+        </div>
+
+        <div id="gameMessages" class="game-messages">
+            <p id="messageText">Bem-vindo à Batalha Pokémon!</p>
+        </div>
+
+        <div id="gameOverScreen" class="screen">
+            <h2 id="gameOverTitle">🏆 VITÓRIA!</h2>
+            <p id="gameOverMessage">Você venceu a batalha!</p>
+            <button onclick="resetGame()">🔄 JOGAR NOVAMENTE</button>
+        </div>
+    </main>
+
+    <script src="pokemon.js"></script>
 </body>
 </html>
