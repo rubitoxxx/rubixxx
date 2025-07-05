@@ -1,46 +1,48 @@
 function login() {
-    const usuario = document.getElementById("username").value;
-    const senha = document.getElementById("password").value;
-    const mensagemErro = document.getElementById("mensagemErro");
+  const usuario = document.getElementById("username").value;
+  const senha = document.getElementById("password").value;
+  const mensagemErro = document.getElementById("mensagemErro");
 
-    // Define users and passwords using an array of objects
-    const users = [
-        { username: "rubens", password: "1234" },
-        { username: "kauan", password: "12345" },
-        { username: "yasmin", password: "1234" },
-        { username: "nadja", password: "4321" },
-        { username: "maria", password: "54321" },
-        { username: "rhayane", password: "54321" },
-        { username: "thaynara", password: "54321" },
-        { username: "thalicia", password: "54321" },
-        { username: "dry", password: "54321" } // Corrected: Assuming this was the intended 'dry' user
-    ];
+  // Definindo usuários e senhas
+  const usuarioAdmin = "rubens";
+  const senhaAdmin = "1234";
+  const usuarioteste = "kauan";
+  const senhaTeste = "12345";
+  const usuarioteste1 = "yasmin";
+  const senhaTeste1 = "1234";
+  const usuarioteste2 = "nadja";
+  const senhaTeste2 = "4321";
+  const usuarioteste3 = "maria";
+  const senhaTeste3 = "54321";
+  const usuarioteste4 = "rhayane";
+  const senhaTeste4 = "54321";
+  const usuarioteste5 = "thaynara";
+  const senhaTeste5 = "54321";
+  const usuarioteste6 = "thalicia";
+  const senhaTeste6 = "54321";
+  const usuarioteste7 = "dry";
+  const senhaTeste7 = "54321";
 
-    // Check if any user matches the entered credentials
-    const isAuthenticated = users.some(user => user.username === usuario && user.password === senha);
-
-    if (isAuthenticated) {
-        // If login is successful, store the user in localStorage
-        localStorage.setItem("usuarioLogado", usuario);
-        
-        // Redirect to the mural after login
-        window.location.href = "mural.html";
-    } else {
-        // If login fails, display the error message
-        mensagemErro.textContent = "Usuário ou senha incorretos!";
-    }
+  // Condição para verificação de usuário e senha
+  if ((usuario === usuarioAdmin && senha === senhaAdmin) || 
+      (usuario === usuarioteste && senha === senhaTeste) || 
+      (usuario === usuarioteste1 && senha === senhaTeste1) ||
+      (usuario === usuarioteste2 && senha === senhaTeste2) ||
+      (usuario === usuarioteste3 && senha === senhaTeste3) ||
+      (usuario === usuarioteste4 && senha === senhaTeste4) ||
+      (usuario === usuarioteste5 && senha === senhaTeste5) ||
+      (usuario === usuarioteste6 && senha === senhaTeste6) ||
+      (usuario === usuarioteste7 && senha === senhaTeste7)) {
+    
+    // Se o login for bem-sucedido, armazene o usuário no localStorage
+    localStorage.setItem("usuarioLogado", usuario);
+    
+    // Redireciona para o mural após login
+    window.location.href = "mural.html"; 
+  } else {
+    // Caso o login falhe, exibe a mensagem de erro
+    mensagemErro.textContent = "Usuário ou senha incorretos!";
+  }
 }
-
-// Your other functions remain the same
-function exibirFotoPerfil() {
-    // Lógica de exibição da foto de perfil (se necessário)
-}
-
-function convertToBase64(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-    });
-}
+  // Limpa a mensagem de erro ao digitar novamente
+mensagemErro.textContent = "";
